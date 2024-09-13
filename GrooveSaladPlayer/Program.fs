@@ -10,12 +10,18 @@ let url = "https://ice1.somafm.com/groovesalad-128-aac"
 
 printfn "Starting Groove Salad Playback"
 
+let play (wo : WasapiOut) = 
+    try
+        wo.Play()
+    with
+        | e -> printfn "%s" e.Message
+
 let start () =
     use mf = new MediaFoundationReader(url)
     use wo = new WasapiOut()
 
     wo.Init(mf)
-    wo.Play()
+    play wo
     
     printfn "Press any key to stop"
     Console.ReadKey() |> ignore
