@@ -10,6 +10,13 @@ let url = "https://ice1.somafm.com/groovesalad-128-aac"
 
 printfn "Starting Groove Salad Playback"
 
+let waitpos (wo : WasapiOut) pos =
+    while wo.GetPosition() < pos do
+        Thread.Sleep 1000
+
+let position (wo : WasapiOut) = 
+    wo.GetPosition() |> printfn "%i"
+
 let init (wo: WasapiOut) mf = 
     try
         wo.Init(mf)
@@ -33,7 +40,12 @@ let start () =
     init wo mf
     play wo
     
+    waitpos wo 1000 // wait for it to actually play audibly
+
+    printfn "Playing"
+
     printfn "Press any key to stop"
+
     Console.ReadKey() |> ignore
 
 start()
