@@ -3,6 +3,7 @@ open NAudio.MediaFoundation
 open NAudio.Wasapi
 open NAudio.Wave
 open System.Threading
+open System
 
 
 let url = "https://ice1.somafm.com/groovesalad-128-aac"
@@ -15,10 +16,9 @@ let start () =
 
     wo.Init(mf)
     wo.Play()
-
-    while true do
-        Thread.Sleep 1000
-
+    
+    printfn "Press enter to stop"
+    Console.ReadLine() |> ignore
 
 start()
 
