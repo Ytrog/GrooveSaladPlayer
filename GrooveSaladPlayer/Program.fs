@@ -14,13 +14,17 @@ let init (wo: WasapiOut) mf =
     try
         wo.Init(mf)
     with
-        | e -> printfn "%s" e.Message
+        | e -> 
+            printfn "%s" e.Message
+            reraise()
 
 let play (wo : WasapiOut) = 
     try
         wo.Play()
     with
-        | e -> printfn "%s" e.Message
+        | e -> 
+            printfn "%s" e.Message
+            reraise()
 
 let start () =
     use mf = new MediaFoundationReader(url)
