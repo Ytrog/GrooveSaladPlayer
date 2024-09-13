@@ -17,8 +17,8 @@ let start () =
     wo.Init(mf)
     wo.Play()
     
-    printfn "Press enter to stop"
-    Console.ReadLine() |> ignore
+    printfn "Press any key to stop"
+    Console.ReadKey() |> ignore
 
 start()
 
