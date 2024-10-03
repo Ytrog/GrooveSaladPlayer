@@ -33,6 +33,14 @@ let play (wo : WasapiOut) =
             printfn "%s" e.Message
             reraise()
 
+
+let rec catchkey (action : string) (k : ConsoleKey) = 
+    printfn "Press %O to %s" k action
+    let key = Console.ReadKey()
+    match key.Key with
+    | x when x = k  -> ()
+    | _ -> catchkey action k
+
 let start () =
     use mf = new MediaFoundationReader(url)
     use wo = new WasapiOut()
@@ -44,9 +52,7 @@ let start () =
 
     printfn "Playing"
 
-    printfn "Press any key to stop"
-
-    Console.ReadKey() |> ignore
+    catchkey "stop" ConsoleKey.Escape
 
 start()
 
